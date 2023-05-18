@@ -8,6 +8,7 @@ import com.example.ProjectMovies.entity.Rating;
 import com.example.ProjectMovies.entity.User;
 import com.example.ProjectMovies.repository.UserCrudRepository;
 import com.example.ProjectMovies.service.MovieService;
+import com.example.ProjectMovies.service.RatingService;
 import com.example.ProjectMovies.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,14 +22,53 @@ import java.util.Map;
 @RequestMapping(path="/ProjectMovies")
 public class MovieController {
 
+
+
     @Autowired
     private MovieService movieService;
+    @Autowired
+    private RatingService ratingService;
 
     @CrossOrigin
-    @PostMapping(path="/searchmovie") // Map ONLY POST Requests
+    @GetMapping(path="/userRatings")
+    public @ResponseBody List<Rating> getAllRatings()
+    {
+        return ratingService.getAllRatings();
+    }
+    @CrossOrigin
+    @GetMapping(path = "/moviesByYear/{year}")
+    public @ResponseBody List<Movie> getMoviesByYear(@PathVariable int year) {
+        return movieService.getMoviesByYear(year);
+    }
+
+    @CrossOrigin
+    @PostMapping(path="/moviesByTitle") // Map ONLY POST Requests
     public @ResponseBody List<Movie> searchMovie(@RequestBody Map<String, String> request) {
         String searchedMovie = request.get("title");
-        return movieService.searchMovie(searchedMovie);
+        return movieService.getMoviesByTitle(searchedMovie);
     }
+
+
+
+    @CrossOrigin
+    @PostMapping(path = "/moviesByDirector")
+    public @ResponseBody List<Movie> getMoviesByDirector(@RequestBody Map<String,String> request) {
+        String searchedDirector = request.get("director");
+        return movieService.getMoviesByDirector(searchedDirector);
+    }
+    @CrossOrigin
+    @PostMapping(path = "/moviesByGenre")
+    public @ResponseBody List<Movie> getMoviesByYear(@RequestBody Map<String,String> request) {
+
+        String searchedGenre = request.get("genre");
+        return movieService.getMoviesByGenre(searchedGenre);
+    }
+    @CrossOrigin
+    @PostMapping(path = "/movies")
+    public @ResponseBody List<Movie> getAllMovies() {
+
+        return movieService.getAllMovies();
+    }
+
 
 }

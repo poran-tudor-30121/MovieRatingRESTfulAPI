@@ -1,9 +1,6 @@
 package com.example.ProjectMovies.service;
 
-import com.example.ProjectMovies.DTO.MovieDTO;
-import com.example.ProjectMovies.DTO.RatingDTO;
-import com.example.ProjectMovies.DTO.UserDTO;
-import com.example.ProjectMovies.DTO.UserLoginDTO;
+import com.example.ProjectMovies.DTO.*;
 import com.example.ProjectMovies.entity.Movie;
 import com.example.ProjectMovies.entity.Rating;
 import com.example.ProjectMovies.entity.Role;
@@ -35,6 +32,12 @@ public class UserService {
 
     @Autowired
     private MovieRepository movieRepository;
+
+    public User showUser(UserUserDTO userUserDTO)
+    {
+        User user = userCrudRepository.findByUsername(userUserDTO.getUsername());
+        return user;
+    }
 
 
     public String login(UserLoginDTO userLoginDTO)
@@ -173,4 +176,5 @@ public class UserService {
 
         return user;
     }
+
 }

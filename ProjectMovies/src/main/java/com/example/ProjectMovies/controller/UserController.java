@@ -1,9 +1,6 @@
 package com.example.ProjectMovies.controller;
 
-import com.example.ProjectMovies.DTO.MovieDTO;
-import com.example.ProjectMovies.DTO.RatingDTO;
-import com.example.ProjectMovies.DTO.UserDTO;
-import com.example.ProjectMovies.DTO.UserLoginDTO;
+import com.example.ProjectMovies.DTO.*;
 import com.example.ProjectMovies.entity.Movie;
 import com.example.ProjectMovies.entity.Rating;
 import com.example.ProjectMovies.entity.User;
@@ -23,6 +20,13 @@ public class UserController {
     @Autowired
     private  UserService userService;
 
+    @CrossOrigin
+    @GetMapping(path="/user")
+    public @ResponseBody User showUser (@RequestBody UserUserDTO userUserDTO)
+    {
+        User user = userService.showUser(userUserDTO);
+        return user;
+    }
     @CrossOrigin
     @PostMapping(path="/addadmin") // Map ONLY POST Requests
     public @ResponseBody User addNewAdmin (@RequestBody UserDTO userDTO) {
