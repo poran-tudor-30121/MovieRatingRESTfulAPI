@@ -39,6 +39,11 @@ public class UserService {
         return user;
     }
 
+    public List<Rating> getUserRatings(UserUserDTO userUserDTO)
+    {
+        List<Rating> userRatings= ratingsRepository.findByUser(userCrudRepository.findByUsername(userUserDTO.getUsername()));
+        return userRatings;
+    }
 
     public String login(UserLoginDTO userLoginDTO)
     {

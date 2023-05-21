@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.AccessDeniedException;
+import java.util.List;
 
 @Controller
 @RequestMapping(path="/ProjectMovies")
@@ -19,6 +20,14 @@ public class UserController {
 
     @Autowired
     private  UserService userService;
+
+    @CrossOrigin
+    @PostMapping(path="/userRatings")
+    public @ResponseBody List<Rating> showUserRatings (@RequestBody UserUserDTO userUserDTO)
+    {
+        return userService.getUserRatings(userUserDTO);
+    }
+
 
     @CrossOrigin
     @GetMapping(path="/user")
